@@ -11,6 +11,9 @@ if (!isset($_SESSION['login'])) {
     <button type="submit" name="logout" id="">Logout</button>
 </form>
 
-<?= getAttribute('main_banner'); ?>
+<?php
+echo getAttribute('main_banner');
+table(['tableName' => 'users', 'columns' => '*', 'unset' => 'password']);
+?>
 
 <?php include_once 'partials/header.php'; ?>

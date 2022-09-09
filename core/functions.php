@@ -117,3 +117,40 @@ if (isset($_POST['logout'])) {
     session_destroy();
     header('Location: index.php');
 }
+
+function table($arguments)
+{
+    global $db;
+    $rows = $db->from($arguments['tableName'])->select($arguments['columns'])->all();
+    $table = "<table class='rounede bg-gray-600'>";
+    $table .= "<thead>";
+    $table .= "<tr class='text-left whitespace-nowrap'>";
+    foreach ($rows[0] as $key => $value) {
+        $table .= "<th class='p-3'>";
+        $table .= strtoupper(str_replace('_', ' ', $key));
+        $table .= "</th>";
+    }
+    $table .= "</tr>";
+    $table .= "</thead>";
+    $table .= "<tbody>";
+    foreach ($rows as $row) {
+        $table .= "<tr class='odd:bg-gray-700'>";
+        foreach ($row as $data) {
+            if (isset($arguments['unset'])) {
+                if (is_array($arguments['unset'])) {
+                    foreach ($arguments['unset'] as $key => $value) {
+                        unset($row[$value]);
+                    }
+                } else {
+                    unset($row[$arguments['unset']]);
+                }
+            }
+            $table .= "<td class='p-3'>";
+            $table .= $data;
+            $table .= "</td>";
+        }
+        $table .= "</tr>";
+    }
+    $table .= "</tbody>";
+    echo $table .= "</table>";
+}
