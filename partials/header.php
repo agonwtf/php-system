@@ -1,4 +1,7 @@
-<?php require_once 'core/functions.php'; ?>
+<?php
+require_once 'core/functions.php';
+global $user;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
